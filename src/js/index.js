@@ -1,11 +1,11 @@
 
 const serverurl = process.env.SERVER_API;
 
-console.log("Dev m3", serverurl);
+// console.log("Dev m3", serverurl);
 
 let filtroCor = "";
-let filtroTamanho = "G";
-let filtroPreco = "p1";
+let filtroTamanho = "";
+let filtroPreco = "";
 const precos = {
   'p1': [0, 50],
   'p2': [51, 150],
@@ -19,7 +19,7 @@ let listaProdutosFiltrados = [];
 
 
 // filtrar({cor: 'Preto', tamanho: 'G', preco: 'p1'})
-function filtrar(params) {
+const filtrar = (params) => {
   filtroCor = params.hasOwnProperty('cor') && params?.cor != filtroCor ? params?.cor : filtroCor;
   filtroTamanho = params.hasOwnProperty('tamanho') && params?.tamanho != filtroTamanho ? params?.tamanho : filtroTamanho;
   filtroPreco = params.hasOwnProperty('preco') && params?.preco != filtroPreco ? params?.preco : filtroPreco;
@@ -41,12 +41,23 @@ function filtrar(params) {
     } else return false
   })
 
+  // console.log(produtosFiltrados)
   return produtosFiltrados;
 }
 
+const checkFiltros = document.querySelectorAll('.check-filtrar')
+checkFiltros.forEach(radio => {
+  
+  radio.onclick = aplicarFiltro
+  
+})
 
-function aplicarFiltro(tipo, valor) {
-
+function aplicarFiltro(elem) {
+  const id = elem.target.id
+  const params = (id).split('-')
+  const filtro = {[params[0]]: params[1]}
+  const g = filtrar(filtro)
+  
 }
 
 
@@ -145,7 +156,6 @@ btnOrdenar.addEventListener('mouseup', () => {
   // containerOrdenar.style.width = '100%'
   containerOrdenar.classList.add('modal')
   containerProdutos.classList.add('oculto')
-  console.log('ordenar', containerOrdenar)
 
 })
 
@@ -165,7 +175,6 @@ function fecharModal() {
 
 
 function reportWindowSize() {
-  // console.log(window.innerHeight, window.innerWidth)
   if (window.innerWidth > 600){
     fecharModal();
     containerProdutos.style.display = 'flex'

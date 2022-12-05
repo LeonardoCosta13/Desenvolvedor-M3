@@ -176,8 +176,8 @@ header {
 
         &:before {
             left: 0;
-            width: 30px;
-            height: 30px;
+            width: 17px;
+            height: 17px;
             margin: -15px 0 0;
             background: #f7f7f7;
             box-shadow: 0 0 1px grey;
@@ -185,8 +185,8 @@ header {
 
         &:after {
             left: 5px;
-            width: 20px;
-            height: 20px;
+            width: 8px;
+            height: 8px;
             margin: -10px 0 0;
             opacity: 0;
             background: #37b2b2;
@@ -497,6 +497,7 @@ select {
 .filtro-precos {
     font-family: "Open Sans";
     margin: 8px 0 12px 16px;
+    font-size: 12px;
 
 }
 
