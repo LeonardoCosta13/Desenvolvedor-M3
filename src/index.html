@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desenvolvedor M3</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+  <header>
+    <div class="container nav">
+      <img src="./img/logo-m3.png" alt="logo-m3" class="logo-m3" />
+      <img src="./img/carrinho.png" alt="carrinho-m3" class="carrinho-m3" />
+    </div>
+  </header>
+
+  <hr>
+  <div class="top">
+    <div class="container cabecalho">
+      <h1 class="titulo-blusas">Blusas</h1>
+
+      <div class="acoes" style="display: none;">
+        <button id="btn-filtar">Filtrar</button>
+        <button id="btn-ordenar">Ordenar</button>
+      </div>
+      
+      <div class="ordenar-select">
+        <div class="titulo-filtro">
+          <h1>ORDENAR</h1>
+          <button class="fechar">X</button>
+          <hr >
+        </div>
+        
+        <h1>Mais recentes</h1>
+        <h1>Menor preço</h1>
+        <h1>Maior preço</h1>
+      </div>
+
+    </div>
+  </div>
+
+  <main>
+    <div class="container-filtros">
+      <div class="titulo-filtro">
+        <h1>Filtrar</h1>
+        <button class="fechar">X</button>
+        <hr >
+      </div>
+
+      <div class="filtro-cores">
+
+        <h2 class="cores-titulo">CORES</h2>
+
+        <div class="styled-input--square">
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-0" id="cor-amarelo" />
+            <label for="cor-amarelo">Amarelo</label>
+          </div>
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-0" id="cor-azul" />
+            <label for="cor-azul">Azul</label>
+          </div>
+          <div class="styled-input-single cor-filtro">
+            <input type="radio" name="fieldset-0" id="cor-branco" />
+            <label for="cor-branco">Branco</label>
+          </div>
+          <div class="styled-input-single cor-filtro">
+            <input type="radio" name="fieldset-0" id="cor-cinza" />
+            <label for="cor-cinza">Cinza</label>
+          </div>
+          <div class="styled-input-single cor-filtro">
+            <input type="radio" name="fieldset-0" id="cor-laranja" />
+            <label for="cor-laranja">Laranja</label>
+          </div>
+          <div class="styled-input-single cor-filtro" style="display: none;">
+            <input type="radio" name="fieldset-0" id="cor-verde" />
+            <label for="cor-verde">Verde</label>
+          </div>
+          <div class="styled-input-single cor-filtro" style="display: none;">
+            <input type="radio" name="fieldset-0" id="cor-vermelho" />
+            <label for="cor-vermelho">Vermelho</label>
+          </div>
+          <div class="styled-input-single cor-filtro" style="display: none;">
+            <input type="radio" name="fieldset-0" id="cor-preto" />
+            <label for="cor-preto">Preto</label>
+          </div>
+          <div class="styled-input-single cor-filtro" style="display: none;">
+            <input type="radio" name="fieldset-0" id="cor-rosa" />
+            <label for="cor-rosa">Rosa</label>
+          </div>
+          <div class="styled-input-single cor-filtro" style="display: none;">
+            <input type="radio" name="fieldset-0" id="cor-vinho" />
+            <label for="cor-vinho">Vinho</label>
+          </div>
+        </div>
+
+        <button id="ver-mais" class="button-filtro">Ver todas as cores </button>
+
+      </div>
+
+      <div class="filtro-tamanhos">
+
+        <h2 class="tamanhos-titulo">TAMANHOS</h2>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="P" value="P">P</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="M" value="M">M</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="G" value="G">G</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="GG" value="GG">GG</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="U" value="U">U</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="36" value="36">36</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="38" value="38">38</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="40" value="40">40</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="36" value="36">36</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="38" value="38">38</button>
+        <button type="radio" class="tamanhos-itens check-filtrar" id="40" value="40">40</button>
+
+      </div>
+
+      <div class="filtro-precos">
+
+        <h2 class="faixa-preco">FAIXA DE PREÇO</h2>
+
+        <div class="styled-input--square">
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-2" id="p1" class="preco-item"/>
+            <label for="p1">de R$0 até R$50</label>
+          </div>
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-2" id="p2" class="preco-item"/>
+            <label for="p2">de R$51 até R$150</label>
+          </div>
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-2" id="p3" class="preco-item"/>
+            <label for="p3">de R$151 até R$300</label>
+          </div>
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-2" id="p4" class="preco-item"/>
+            <label for="p4">de R$301 até R$500</label>
+          </div>
+          <div class="styled-input-single">
+            <input type="radio" name="fieldset-2" id="p5" class="preco-item"/>
+            <label for="p5">a partir de R$ 500</label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="container-produtos">
+      <div id="produtos">
+
+      </div>
+
+      <button class="button-footer">CARREGAR MAIS</button>
+    </div>
+
+
+
+  </main>
+
+  <footer class="footer">
+    <h2 class="titulo-footer">M3: Implantação de E-commerce VTEX</h2>
+  </footer>
+
+
+</body>
+
+<script src="bundle.js"></script>
+
+</html>
