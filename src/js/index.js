@@ -72,12 +72,11 @@ fetch(`${serverurl}/products`)
     let produtos = []
 
     for (let produto of result) {
-      console.log('Produto-> ', produto)
+      
       if (produtos.some(p => p.id == produto.id)) {
         continue
       }
       produtos.push(produto)
-      console.log('produtos: ', produtos)
 
     }
 
@@ -118,29 +117,36 @@ function elementFromHtml(html) {
 
 const btnFiltrar = document.getElementById('btn-filtar')
 const containerFiltros = document.querySelector('.container-filtros')
+const btnOrdenar = document.getElementById('btn-ordenar')
+const containerOrdenar = document.querySelector('.ordenar-select')
+const containerProdutos = document.querySelector('.container-produtos')
 
 btnFiltrar.addEventListener('mouseup', () => {
 
-  containerFiltros.style.display = 'block'
-  containerFiltros.style.position = 'absolute'
-  containerFiltros.style.top = '0'
-  containerFiltros.style.left = '0'
-  containerFiltros.style.zIndex = '20'
-  containerFiltros.style.width = '100%'
+  // containerFiltros.style.display = 'block'
+  // containerFiltros.style.position = 'absolute'
+  // containerFiltros.style.top = '0'
+  // containerFiltros.style.left = '0'
+  // containerFiltros.style.zIndex = '20'
+  // containerFiltros.style.width = '100%'
+  containerFiltros.classList.add('modal')
+  containerProdutos.classList.add('oculto')
 
 })
 
-const btnOrdenar = document.getElementById('btn-ordenar')
-const containerOrdenar = document.querySelector('.ordenar-select')
 
 btnOrdenar.addEventListener('mouseup', () => {
 
-  containerOrdenar.style.display = 'block'
-  containerOrdenar.style.position = 'absolute'
-  containerOrdenar.style.top = '0'
-  containerOrdenar.style.left = '0'
-  containerOrdenar.style.zIndex = '3'
-  containerOrdenar.style.width = '100%'
+  // containerOrdenar.style.display = 'block'
+  // containerOrdenar.style.position = 'absolute'
+  // containerOrdenar.style.top = '0'
+  // containerOrdenar.style.left = '0'
+  // containerOrdenar.style.zIndex = '3'
+  // containerOrdenar.style.width = '100%'
+  containerOrdenar.classList.add('modal')
+  containerProdutos.classList.add('oculto')
+  console.log('ordenar', containerOrdenar)
+
 })
 
 
@@ -153,14 +159,23 @@ btnFechar.forEach(botao => {
 function fecharModal() {
   containerFiltros.classList.remove("modal");
   containerOrdenar.classList.remove("modal");
+  containerProdutos.classList.remove('oculto')
 
 }
 
 
 function reportWindowSize() {
   // console.log(window.innerHeight, window.innerWidth)
-  if (window.innerWidth > 600) {
+  if (window.innerWidth > 600){
     fecharModal();
+    containerProdutos.style.display = 'flex'
+    containerProdutos.classList.remove('oculto')
+  }else {
+    if( containerFiltros.classList.contains('modal') || containerOrdenar.classList.contains('modal')) {
+      containerProdutos.classList.add('oculto')
+    } else {
+      containerProdutos.classList.remove('oculto')
+    }
   }
 }
 
