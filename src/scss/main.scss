@@ -415,6 +415,7 @@ option {
     flex-direction: column;
     width: 800px;
     max-width: 800px;
+    margin-bottom: 10px;
 }
 
 #produtos {
@@ -502,7 +503,9 @@ select {
 }
 
 @media screen and (max-width: 600px) {
-
+    #ordenar-select-desk{
+        display: none;
+    }
 
     header {
         display: flex;

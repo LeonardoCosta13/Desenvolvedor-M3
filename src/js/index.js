@@ -14,6 +14,7 @@ const precos = {
   'p5': [501, true],
 }
 
+let carregado = false
 let listaProdutos = [];
 let listaProdutosFiltrados = [];
 
@@ -56,16 +57,17 @@ function aplicarFiltro(elem) {
   const id = elem.target.id
   const params = (id).split('-')
   const filtro = {[params[0]]: params[1]}
-  const g = filtrar(filtro)
+  const filtrados = filtrar(filtro)
   
+  montarListaProdutos(filtrados)
 }
 
 
 
-
-
 const verMais = document.getElementById("ver-mais");
+const carregarMais = document.querySelector(".button-footer");
 verMais.addEventListener("mouseup", mostrarMais);
+carregarMais.addEventListener("mouseup", carregarMaisProdutos);
 
 function mostrarMais() {
   const g = document.querySelectorAll(".cor-filtro");
@@ -75,6 +77,16 @@ function mostrarMais() {
   });
 
   verMais.style.display = "none";
+}
+
+function carregarMaisProdutos() {
+  const item = document.querySelectorAll(".item");
+
+  item.forEach((elem) => {
+    elem.style.display = "flex";
+  });
+
+  carregarMais.style.display = "none";
 }
 
 fetch(`${serverurl}/products`)
@@ -98,13 +110,36 @@ fetch(`${serverurl}/products`)
 
 function montarListaProdutos(arrProdutos) {
   const divProdutos = document.getElementById("produtos");
+  listaProdutosFiltrados = []
+  let produtos = []
+  /*
+  let produtos = []
+
+    for (let produto of result) {
+      
+      if (produtos.some(p => p.id == produto.id)) {
+        continue
+      }
+      produtos.push(produto)
+
+    }
+    */
   divProdutos.innerHTML = ""
 
-  for (let produto of arrProdutos) {
-    listaProdutos.push(produto);
+  for (let [index, produto] of arrProdutos.entries()) {
+    if (listaProdutosFiltrados.some(p => p.id == produto.id)) {
+      continue
+    }
+    
+    if(carregado){
+      listaProdutosFiltrados.push(produto)
+    } else {
+      listaProdutos.push(produto)
+      listaProdutosFiltrados.push(produto)
+    }
 
     const valor = elementFromHtml(`
-        <div class="item" id="${produto.id}">
+        <div class="item" id="${produto.id}" ${index > 5 ? 'style="display: none;"': ''}>
           <img class="img-item" src="${produto.image}" alt="camisa mesclada" class="img-item">
           <h2 class="nome-item">${produto.name}</h2>
           <b class="valor-avista">R$ ${produto.price.toFixed(2)}</b>
@@ -116,7 +151,11 @@ function montarListaProdutos(arrProdutos) {
 
     divProdutos.appendChild(valor);
   }
+
+  carregado = true
 }
+
+
 
 function elementFromHtml(html) {
   const template = document.createElement("template");
@@ -128,7 +167,7 @@ function elementFromHtml(html) {
 
 const btnFiltrar = document.getElementById('btn-filtar')
 const containerFiltros = document.querySelector('.container-filtros')
-const btnOrdenar = document.getElementById('btn-ordenar')
+const btnMostrarOrdenar = document.getElementById('btn-ordenar')
 const containerOrdenar = document.querySelector('.ordenar-select')
 const containerProdutos = document.querySelector('.container-produtos')
 
@@ -146,7 +185,8 @@ btnFiltrar.addEventListener('mouseup', () => {
 })
 
 
-btnOrdenar.addEventListener('mouseup', () => {
+
+btnMostrarOrdenar.addEventListener('mouseup', () => {
 
   // containerOrdenar.style.display = 'block'
   // containerOrdenar.style.position = 'absolute'
