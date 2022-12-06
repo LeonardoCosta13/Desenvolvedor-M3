@@ -1,7 +1,7 @@
 
 const serverurl = process.env.SERVER_API;
 
-// console.log("Dev m3", serverurl);
+console.log("Dev m3", serverurl);
 
 let filtroCor = "";
 let filtroTamanho = "";
@@ -42,30 +42,29 @@ const filtrar = (params) => {
     } else return false
   })
 
-  // console.log(produtosFiltrados)
   return produtosFiltrados;
 }
 
 const checkFiltros = document.querySelectorAll('.check-filtrar')
 checkFiltros.forEach(radio => {
-  
+
   radio.onclick = aplicarFiltro
-  
+
 })
 
 function aplicarFiltro(elem) {
   const id = elem.target.id
   const params = (id).split('-')
-  const filtro = {[params[0]]: params[1]}
+  const filtro = { [params[0]]: params[1] }
   const filtrados = filtrar(filtro)
-  
+
   montarListaProdutos(filtrados)
 }
 
 
 
 const verMais = document.getElementById("ver-mais");
-const carregarMais = document.querySelector(".button-footer");
+const carregarMais = document.getElementById("btn-carregar-mais");
 verMais.addEventListener("mouseup", mostrarMais);
 carregarMais.addEventListener("mouseup", carregarMaisProdutos);
 
@@ -80,6 +79,7 @@ function mostrarMais() {
 }
 
 function carregarMaisProdutos() {
+  console.log('carregarMaisProdutos')
   const item = document.querySelectorAll(".item");
 
   item.forEach((elem) => {
@@ -95,7 +95,7 @@ fetch(`${serverurl}/products`)
     let produtos = []
 
     for (let produto of result) {
-      
+
       if (produtos.some(p => p.id == produto.id)) {
         continue
       }
@@ -108,30 +108,20 @@ fetch(`${serverurl}/products`)
   })
   .catch(console.log);
 
-function montarListaProdutos(arrProdutos) {
+function montarListaProdutos(arrProdutos, ordem = 'mais-recentes') {
   const divProdutos = document.getElementById("produtos");
   listaProdutosFiltrados = []
-  let produtos = []
-  /*
-  let produtos = []
 
-    for (let produto of result) {
-      
-      if (produtos.some(p => p.id == produto.id)) {
-        continue
-      }
-      produtos.push(produto)
-
-    }
-    */
   divProdutos.innerHTML = ""
 
-  for (let [index, produto] of arrProdutos.entries()) {
+  const ordenado = ordenar(arrProdutos, ordem )
+
+  for (let [index, produto] of ordenado.entries()) {
     if (listaProdutosFiltrados.some(p => p.id == produto.id)) {
       continue
     }
-    
-    if(carregado){
+
+    if (carregado) {
       listaProdutosFiltrados.push(produto)
     } else {
       listaProdutos.push(produto)
@@ -139,7 +129,7 @@ function montarListaProdutos(arrProdutos) {
     }
 
     const valor = elementFromHtml(`
-        <div class="item" id="${produto.id}" ${index > 5 ? 'style="display: none;"': ''}>
+        <div class="item" id="${produto.id}" ${index > 5 ? 'style="display: none;"' : ''}>
           <img class="img-item" src="${produto.image}" alt="camisa mesclada" class="img-item">
           <h2 class="nome-item">${produto.name}</h2>
           <b class="valor-avista">R$ ${produto.price.toFixed(2)}</b>
@@ -150,6 +140,12 @@ function montarListaProdutos(arrProdutos) {
       `);
 
     divProdutos.appendChild(valor);
+  }
+
+  if(listaProdutosFiltrados.length > 6){
+    carregarMais.style.display = "block";
+  } else {
+    carregarMais.style.display = "none";
   }
 
   carregado = true
@@ -169,31 +165,54 @@ const btnFiltrar = document.getElementById('btn-filtar')
 const containerFiltros = document.querySelector('.container-filtros')
 const btnMostrarOrdenar = document.getElementById('btn-ordenar')
 const containerOrdenar = document.querySelector('.ordenar-select')
+const arrOrdenarText = document.querySelectorAll('.ordenar-text')
 const containerProdutos = document.querySelector('.container-produtos')
 
 btnFiltrar.addEventListener('mouseup', () => {
 
-  // containerFiltros.style.display = 'block'
-  // containerFiltros.style.position = 'absolute'
-  // containerFiltros.style.top = '0'
-  // containerFiltros.style.left = '0'
-  // containerFiltros.style.zIndex = '20'
-  // containerFiltros.style.width = '100%'
   containerFiltros.classList.add('modal')
   containerProdutos.classList.add('oculto')
 
 })
 
+arrOrdenarText.forEach(elem => {
+  elem.onclick = function(){
+    
+    montarListaProdutos(listaProdutosFiltrados, elem.id)
+    fecharModal()
+  }
+})
 
+const selectOrdenar = document.getElementById('ordenar-select-desk')
+selectOrdenar.onchange = function (elem) {
+  const criterio = elem.target.value
+  
+  montarListaProdutos(listaProdutosFiltrados, criterio)
+}
+
+function ordenar(arr, criterio) {
+  
+  if (criterio == 'mais-recentes') {
+    arr.sort((a, b) => {
+      const d1 = new Date(a['date']).getTime();
+      const d2 = new Date(b['date']).getTime();
+
+      return Number(d2) - Number(d1)
+    })
+  } else if (criterio == 'menor-preco') {
+    arr.sort((a, b) => a.price - b.price)
+
+  } else if (criterio == 'maior-preco') {
+    arr.sort((a, b) => b.price - a.price)
+
+  }
+
+  return arr
+
+}
 
 btnMostrarOrdenar.addEventListener('mouseup', () => {
 
-  // containerOrdenar.style.display = 'block'
-  // containerOrdenar.style.position = 'absolute'
-  // containerOrdenar.style.top = '0'
-  // containerOrdenar.style.left = '0'
-  // containerOrdenar.style.zIndex = '3'
-  // containerOrdenar.style.width = '100%'
   containerOrdenar.classList.add('modal')
   containerProdutos.classList.add('oculto')
 
@@ -214,13 +233,27 @@ function fecharModal() {
 }
 
 
+const btnLimparFiltros = document.getElementById('limpar-filtros')
+btnLimparFiltros.onclick = function(){
+  filtrar({cor: '', tamanho: '', preco: ''})
+  
+  montarListaProdutos(listaProdutos)
+
+  checkFiltros.forEach(elem => {
+
+    elem.checked = false
+  
+  })
+}
+
+
 function reportWindowSize() {
-  if (window.innerWidth > 600){
+  if (window.innerWidth > 600) {
     fecharModal();
     containerProdutos.style.display = 'flex'
     containerProdutos.classList.remove('oculto')
-  }else {
-    if( containerFiltros.classList.contains('modal') || containerOrdenar.classList.contains('modal')) {
+  } else {
+    if (containerFiltros.classList.contains('modal') || containerOrdenar.classList.contains('modal')) {
       containerProdutos.classList.add('oculto')
     } else {
       containerProdutos.classList.remove('oculto')

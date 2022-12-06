@@ -29,7 +29,9 @@
       </div>
 
       <select name="" id="ordenar-select-desk">
-        <option value="">Mais recentes</option>
+        <option value="mais-recentes">Mais recentes</option>
+        <option value="menor-preco">Menor preço</option>
+        <option value="maior-preco">Maior preço</option>
       </select>
       
       <div class="ordenar-select">
@@ -39,9 +41,9 @@
           <hr >
         </div>
         
-        <h1>Mais recentes</h1>
-        <h1>Menor preço</h1>
-        <h1>Maior preço</h1>
+        <h1 class="ordenar-text" id="mais-recentes">Mais recentes</h1>
+        <h1 class="ordenar-text" id="menor-preco">Menor preço</h1>
+        <h1 class="ordenar-text" id="maior-preco">Maior preço</h1>
       </div>
 
     </div>
@@ -153,6 +155,12 @@
 
       </div>
 
+      <div id="acoes-filtro">
+        <button class="button-footer primary" >APLICAR</button>
+        <button id="limpar-filtros" class="button-footer default">LIMPAR</button>
+      </div>
+      
+
     </div>
 
     <div class="container-produtos">
@@ -160,7 +168,7 @@
 
       </div>
 
-      <button class="button-footer">CARREGAR MAIS</button>
+      <button id="btn-carregar-mais" class="button-footer primary">CARREGAR MAIS</button>
     </div>
 
 
