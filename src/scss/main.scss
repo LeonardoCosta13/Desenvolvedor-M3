@@ -4,7 +4,6 @@
 * {
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
-
 }
 
 header {
@@ -155,13 +154,18 @@ header {
     color: rgba(0, 0, 0, 0.5);
     margin: 3px;
 
-
 }
 
 .styled-input-single {
+    // background-color: red;
     position: relative;
-    padding: 20px 0 20px 40px;
+    padding: 0 20px;
+    margin-bottom: 15px; 
     text-align: left;
+    display: flex;
+    align-items: center;
+    
+
 
     label {
         cursor: pointer;
@@ -170,7 +174,7 @@ header {
         &:after {
             content: "";
             position: absolute;
-            top: 50%;
+            top: 100%;
             border-radius: 50%;
         }
 
@@ -623,3 +627,45 @@ h1 {
         display: block;
     }
 }
+
+// fmdjdknhedkgçfgnjmglkoifgkgmf
+.filtro-tamanhos{
+    div{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+
+    
+    input[type="radio"]{
+        -webkit-appearance:none;
+        margin: 0;
+        margin-left: 3px;
+        margin-bottom: 40px;
+    }
+
+    label{
+        border: 1px solid rgba(0, 0, 0, 0.5);
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 0;
+        color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        text-align: center;
+
+    }
+    
+    label>span{
+        font-size: 15px;
+        margin: 0 auto;
+        font-family: "Poppins",sans-serif;
+        font-weight: 500;
+    }
+
+    input[type="radio"]:checked + label{
+        border: 1px solid #00C0EE;
+        color: #000000;
+    }
+}
+

@@ -61,8 +61,6 @@ function aplicarFiltro(elem) {
   montarListaProdutos(filtrados)
 }
 
-
-
 const verMais = document.getElementById("ver-mais");
 const carregarMais = document.getElementById("btn-carregar-mais");
 verMais.addEventListener("mouseup", mostrarMais);
